@@ -1,7 +1,8 @@
 const CustomizableProducts = () => {
     return (
-        <div>
-
+        <div className="flex flex-col gap-6">
+            <h4>Choose a color</h4>
+            <div></div>
         </div>
     )
 }
