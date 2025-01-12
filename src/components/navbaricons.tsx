@@ -24,8 +24,8 @@ const NavbarIcons = () => {
                 <div className="mt-2 cursor-pointer">Logout</div>
             </div>)}
             <Image src="/notification.png" alt="" height={22} width={22} className="cursor-pointer"></Image>
-            <div className="cursor-pointer relative ">
-                <Image src="/cart.png" alt="" height={22} width={22} className="" onClick={() => SetcartOpen(prev => !prev)}></Image>
+            <div className="cursor-pointer relative " onClick={() => SetcartOpen(prev => !prev)}>
+                <Image src="/cart.png" alt="" height={22} width={22} className="" ></Image>
                 <div className='absolute -top-4 -right-4 w-6 h-6 bg-dev rounded-full text-white text-sm flex items-center justify-center'>2</div>
             </div>
             {isCartOpen && <Cart />}
