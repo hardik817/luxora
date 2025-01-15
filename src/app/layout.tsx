@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
 const inter = Inter({ subsets: ["latin"] });
+import { WixClientcontextProvider } from "@/context/wixContext";
 
 export const metadata: Metadata = {
   title: "Luxora",
@@ -18,9 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        {children}
-        <Footer />
+        <WixClientcontextProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </WixClientcontextProvider>
       </body>
     </html>
   );
