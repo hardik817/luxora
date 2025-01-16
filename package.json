@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@wix/bookings": "^1.0.543",
-    "@wix/sdk": "^1.15.7",
-    "@wix/stores": "^1.0.342",
+    "@wix/sdk": "^1.15.8",
+    "@wix/stores": "^1.0.345",
     "js-cookie": "^3.0.5",
     "next": "^15.1.4",
     "react": "^18",

@@ -2,6 +2,7 @@
 import Categorylist from "@/components/Categorylist"
 import Productlist from "@/components/Productlist"
 import Slider from "@/components/slider"
+// import n1 from "@/context/wixContext"
 import { WixClientContext } from "@/context/wixContext"
 import { useContext, useEffect } from "react"
 import { useWixClient } from "./hooks/useWixClient"
@@ -23,11 +24,11 @@ const HomePage = async () => {
   //   getProducts()
   // }, [myWixClient])
 
-  // const wixclient = await wixClientServer();
-  // const res = await wixclient.products.queryProducts().find()
+  const wixclient = await wixClientServer();
+  const res = await wixclient.products.queryProducts().find()
 
-  // console.log('Products:', res)
-
+  console.log('Products:', res)
+  // n1();
 
 
   return (
