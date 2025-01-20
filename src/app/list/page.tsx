@@ -1,7 +1,13 @@
 import Image from "next/image"
 import Filter from "@/components/filter"
 import Productlist from "@/components/Productlist"
-const ListPage = () => {
+import { wixClientServer } from "@/lib/wixServer"
+import { collections } from "@wix/stores"
+const ListPage = async ({ searchParams }: { searchParams: any }) => {
+    const wixClient = await wixClientServer();
+    const resp = await wixClient.collections.getCollectionBySlug(searchParams.cat || "all-products");
+
+    console.log(resp)
     return (
         <div className='px-4 md:px-8 lg:px-32 xl:px-8 2xl:px-36 relative'>
             {/*Campaign */}
@@ -17,7 +23,7 @@ const ListPage = () => {
             <Filter></Filter>
             {/*Products*/}
             <h1 className="mt-12 text-xl font-semibold">Shoes For You!</h1>
-            <Productlist></Productlist>
+            {/* <Productlist></Productlist> */}
         </div>
     )
 }
