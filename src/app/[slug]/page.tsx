@@ -1,28 +1,35 @@
-import ProductImages from "@/components/productImages"
-import CustomizeProducts from "@/components/CustomizableProducts"
-import Add from "@/components/Add"
-import { wixClientServer } from "@/lib/wixServer"
-import { products } from "@wix/stores"
-import { notFound } from "next/navigation"
-const SinglePage = async ({ params }: { params: { slug: string } }) => {
+import ProductImages from "@/components/productImages";
+import CustomizeProducts from "@/components/CustomizableProducts";
+import Add from "@/components/Add";
+import { wixClientServer } from "@/lib/wixServer";
+import { notFound } from "next/navigation";
+
+interface SinglePageProps {
+    params: {
+        slug: string;
+    };
+}
+
+const SinglePage = async ({ params }: SinglePageProps) => {
     const wixclient = await wixClientServer();
-    const prod = await wixclient.products.queryProducts().eq("slug", params.slug).find()
+    const prod = await wixclient.products.queryProducts().eq("slug", params.slug).find();
+
     if (!prod.items[0]) {
-        return notFound()
+        return notFound();
     }
-    const prod1 = prod.items[0]
+
+    const prod1 = prod.items[0];
+
     return (
-        <div className='px-4 md:px-8 lg:px-32 xl:px-8 2xl:px-36 relative flex flex-col lg:flex-row gap-16'>
-            {/*Image */}
+        <div className="px-4 md:px-8 lg:px-32 xl:px-8 2xl:px-36 relative flex flex-col lg:flex-row gap-16">
+            {/* Image */}
             <div className="w-full lg:w-1/2 lg:sticky top-20 h-max">
                 <ProductImages items={prod1.media?.items} />
             </div>
-            {/*Texts */}
+            {/* Texts */}
             <div className="w-full lg:w-1/2 flex flex-col gap-6">
                 <h1 className="text-4xl font-medium">{prod1.name}</h1>
-                <p className="text-gray-500 ">
-                    {prod1.description}
-                </p>
+                <p className="text-gray-500">{prod1.description}</p>
                 <div className="h-[2px] bg-gray-100"></div>
                 {prod1.price?.price === prod1.price?.discountedPrice ? (
                     <h2 className="font-medium text-2xl">${prod1.price?.price}</h2>
@@ -34,31 +41,20 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
                 )}
                 <div className="h-[2px] bg-gray-100"></div>
                 {prod1.variants && prod1.productOptions ? (
-                    <CustomizeProducts
-                        productId={prod1._id!}
-                        variants={prod1.variants}
-                        productOptions={prod1.productOptions}
-                    />
+                    <CustomizeProducts productId={prod1._id!} variants={prod1.variants} productOptions={prod1.productOptions} />
                 ) : (
-                    <Add
-                        productId={prod1._id!}
-                        variantId="00000000-0000-0000-0000-000000000000"
-                        stockNumber={prod1.stock?.quantity || 0}
-                    />
+                    <Add productId={prod1._id!} variantId="00000000-0000-0000-0000-000000000000" stockNumber={prod1.stock?.quantity || 0} />
                 )}
                 <div className="h-[2px] bg-gray-100"></div>
                 {prod1.additionalInfoSections?.map((section: any) => (
                     <div className="text-sm" key={section.title}>
                         <h4 className="font-medium mb-4">{section.title}</h4>
                         <p>{section.description}</p>
-
                     </div>
-
-                ))
-                }
+                ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default SinglePage
+export default SinglePage;
