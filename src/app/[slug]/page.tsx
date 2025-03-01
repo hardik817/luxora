@@ -10,7 +10,7 @@ import { notFound } from "next/navigation";
 //     };
 // }
 
-async function SinglePage({ params }) {
+async function SinglePage({ params }: { params: { any } }) {
 
 
     const { slug } = await params;
