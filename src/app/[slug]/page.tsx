@@ -4,24 +4,22 @@ import ProductImages from "@/components/productImages";
 import { wixClientServer } from "@/lib/wixServer";
 import { notFound } from "next/navigation";
 
-interface PageProps {
-    params: {
-        slug: string;
-    };
-}
+// interface PageProps {
+//     params?: {
+//         slug?: string;
+//     };
+// }
 
-const SinglePage = async ({ params }: PageProps) => {
-    const { slug } = params;
+async function SinglePage({ params }) {
 
-    if (!slug) {
-        return notFound();
-    }
+
+    const { slug } = await params;
 
     try {
         const wixClient = await wixClientServer();
         const products = await wixClient.products.queryProducts().eq("slug", slug).find();
 
-        if (!products.items[0]) {
+        if (!products.items?.length) {
             return notFound();
         }
 
@@ -79,7 +77,7 @@ const SinglePage = async ({ params }: PageProps) => {
         );
     } catch (error) {
         console.error("Error fetching product:", error);
-        return notFound(); // Or handle the error appropriately
+        return notFound();
     }
 };
 
