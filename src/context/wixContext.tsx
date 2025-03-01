@@ -1,15 +1,20 @@
-"use client"
-import { products, collections } from '@wix/stores';
-import { createClient, OAuthStrategy } from '@wix/sdk';
+"use client";
+
+import { createClient, OAuthStrategy } from "@wix/sdk";
+import { products, collections } from "@wix/stores";
+import { currentCart } from "@wix/ecom";
 import Cookies from "js-cookie";
-import { createContext } from "react";
-import { ReactNode } from "react";
+import { createContext, ReactNode } from "react";
+import { redirects } from '@wix/redirects';
+
 const refreshToken = JSON.parse(Cookies.get("refreshToken") || "{}");
 
-const myWixClient = createClient({
+const wixClient = createClient({
     modules: {
         products,
         collections,
+        currentCart,
+        redirects
     },
     auth: OAuthStrategy({
         clientId: 'c6b63da8-315d-4047-bfc6-6ac303a892ec',
@@ -18,21 +23,20 @@ const myWixClient = createClient({
             accessToken: { value: "", expiresAt: 0 },
         },
     }),
-
 });
-// async function n1() {
-//     const productList = await myWixClient.products.queryProducts().find();
-//     console.log('My Products:');
-//     console.log('Total: ', productList.items);
-// }
-// n1();
-export type WixClient1 = typeof myWixClient;
-export const WixClientContext = createContext<WixClient1>(myWixClient);
-console.log(WixClientContext)
+
+export type WixClient = typeof wixClient;
+
+export const WixClientContext = createContext<WixClient>(wixClient);
+
 export const WixClientcontextProvider = ({
     children,
 }: {
     children: ReactNode;
 }) => {
-    return <WixClientContext.Provider value={myWixClient}>{children}</WixClientContext.Provider>
-}
+    return (
+        <WixClientContext.Provider value={wixClient}>
+            {children}
+        </WixClientContext.Provider>
+    );
+};

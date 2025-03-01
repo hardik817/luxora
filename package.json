@@ -11,6 +11,8 @@
   "dependencies": {
     "@wix/bookings": "^1.0.543",
     "@wix/categories": "^1.0.71",
+    "@wix/ecom": "^1.0.949",
+    "@wix/members": "^1.0.197",
     "@wix/sdk": "^1.15.8",
     "@wix/stores": "^1.0.345",
     "dompurify": "^3.2.3",
@@ -18,7 +20,8 @@
     "js-cookie": "^3.0.5",
     "next": "^15.1.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
