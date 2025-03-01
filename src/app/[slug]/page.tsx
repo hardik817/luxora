@@ -4,13 +4,13 @@ import ProductImages from "@/components/productImages";
 import { wixClientServer } from "@/lib/wixServer";
 import { notFound } from "next/navigation";
 
-// interface PageProps {
-//     params?: {
-//         slug?: string;
-//     };
-// }
+interface PageProps {
+    params?: {
+        slug?: string;
+    };
+}
 
-async function SinglePage({ params }: { params: { any } }) {
+const SinglePage = async ({ params }: PageProps) => {
 
 
     const { slug } = await params;
