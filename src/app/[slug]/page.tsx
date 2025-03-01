@@ -1,18 +1,21 @@
+import { notFound } from "next/navigation";
 import ProductImages from "@/components/productImages";
 import CustomizeProducts from "@/components/CustomizableProducts";
 import Add from "@/components/Add";
 import { wixClientServer } from "@/lib/wixServer";
-import { notFound } from "next/navigation";
 
 interface SinglePageProps {
-    params: {
-        slug: string;
-    };
+    params: { slug: string };
 }
 
 const SinglePage = async ({ params }: SinglePageProps) => {
+    // Await params before destructuring
+    const resolvedParams = await params;
+    const { slug } = resolvedParams;
+
+    // Fetch data asynchronously
     const wixclient = await wixClientServer();
-    const prod = await wixclient.products.queryProducts().eq("slug", params.slug).find();
+    const prod = await wixclient.products.queryProducts().eq("slug", slug).find();
 
     if (!prod.items[0]) {
         return notFound();
