@@ -11,9 +11,8 @@ interface PageProps {
 }
 
 const SinglePage = async ({ params }: PageProps) => {
-
-
-    const { slug } = await params;
+    const paramss = await params;
+    const { slug } = paramss;
 
     try {
         const wixClient = await wixClientServer();
